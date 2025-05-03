@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KR Mecânica - Manutenção de Caminhões e Linha Amarela</title>
+    <link rel="icon" type="image/png" href="static/img/image_fx(12).jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#f4b41a',
+                        secondary: '#000000',
+                        industrial: '#1a1a1a',
+                    },
+                    fontFamily: {
+                        'industrial': ['"Industry"', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('static/img/image_fx(11).jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            min-height: 600px;
+        }
+        
+        .industrial-text {
+            font-family: 'Barlow Condensed', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(244, 180, 26, 0.3), 0 10px 10px -5px rgba(244, 180, 26, 0.1);
+        }
+        
+        .floating-whatsapp {
+            animation: pulse 2s infinite;
+        }
+        
+        .section-divider {
+            height: 100px;
+            background: linear-gradient(to bottom right, transparent 49%, #f4b41a 50%), linear-gradient(to top right, #f4b41a 49%, transparent 50%);
+            background-size: 100% 50%;
+            background-repeat: no-repeat;
+        }
+        
+        .industrial-bg {
+            background-color: #1a1a1a;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f4b41a' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .btn-hover {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-hover:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .btn-hover:hover:after {
+            left: 100%;
+        }
+        
+        .icon-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .icon-hover:hover {
+            transform: scale(1.1);
+            color: #f4b41a;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(244, 180, 26, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(244, 180, 26, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(244, 180, 26, 0);
+            }
+        }
+        
+        .border-glow {
+            box-shadow: 0 0 10px rgba(244, 180, 26, 0.5);
+        }
+        
+        .border-glow:hover {
+            box-shadow: 0 0 20px rgba(244, 180, 26, 0.8);
+        }
+        
+        .scroll-indicator {
+            width: 30px;
+            height: 50px;
+            border: 2px solid #f4b41a;
+            border-radius: 15px;
+            position: relative;
+        }
+        
+        .scroll-indicator:after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            margin-left: -3px;
+            background-color: #f4b41a;
+            border-radius: 100%;
+            animation: scroll-wheel 2s infinite;
+        }
+        
+        @keyframes scroll-wheel {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(16px);
+                opacity: 0;
+            }
+        }
+        
+        .industrial-corner {
+            position: relative;
+        }
+        
+        .industrial-corner:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border-top: 3px solid #f4b41a;
+            border-left: 3px solid #f4b41a;
+        }
+        
+        .industrial-corner:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            border-bottom: 3px solid #f4b41a;
+            border-right: 3px solid #f4b41a;
+        }
+        
+        .part-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .part-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(244, 180, 26, 0.1), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .part-card:hover:before {
+            left: 100%;
+        }
+        
+        .part-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/5565981544315" target="_blank" class="fixed bottom-8 right-8 bg-green-500 text-white p-4 rounded-full z-50 floating-whatsapp hover:bg-green-600 transition-all duration-300 transform hover:scale-110" data-aos="fade-left" data-aos-delay="300">
+        <i class="fab fa-whatsapp text-2xl"></i>
+        <span class="absolute top-0 right-0 bg-primary text-black text-xs font-bold px-2 py-1 rounded-full">AGORA!</span>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="bg-black text-white sticky top-0 z-40 shadow-lg border-b border-primary">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <span class="text-primary font-bold text-3xl industrial-text">KR</span>
+                <span class="font-bold text-3xl ml-1 industrial-text">MECÂNICA</span>
+            </div>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#sobre" class="hover:text-primary transition-all duration-300 border-b-2 border-transparent hover:border-primary pb-1">SOBRE</a>
+                <a href="#servicos" class="hover:text-primary transition-all duration-300 border-b-2 border-transparent hover:border-primary pb-1">SERVIÇOS</a>
+                <a href="#linha-amarela" class="hover:text-primary transition-all duration-300 border-b-2 border-transparent hover:border-primary pb-1">LINHA AMARELA</a>
+                <a href="#contato" class="hover:text-primary transition-all duration-300 border-b-2 border-transparent hover:border-primary pb-1">CONTATO</a>
+                <a href="https://wa.me/5565981544315" target="_blank" class="bg-primary text-black font-bold px-6 py-2 rounded hover:bg-yellow-500 transition-all btn-hover ml-4 border-glow">
+                    <i class="fab fa-whatsapp mr-2"></i> FALE AGORA
+                </a>
+            </div>
+            <button class="md:hidden text-white focus:outline-none" id="mobile-menu-button">
+                <i class="fas fa-bars text-2xl hover:text-primary transition"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-black pb-4 border-t border-gray-800" id="mobile-menu">
+            <a href="#sobre" class="block px-4 py-3 hover:bg-gray-800 hover:text-primary transition">SOBRE</a>
+            <a href="#servicos" class="block px-4 py-3 hover:bg-gray-800 hover:text-primary transition">SERVIÇOS</a>
+            <a href="#linha-amarela" class="block px-4 py-3 hover:bg-gray-800 hover:text-primary transition">LINHA AMARELA</a>
+            <a href="#contato" class="block px-4 py-3 hover:bg-gray-800 hover:text-primary transition">CONTATO</a>
+            <a href="https://wa.me/5565981544315" target="_blank" class="block bg-primary text-black font-bold px-4 py-3 mx-4 my-2 rounded hover:bg-yellow-500 transition text-center">
+                <i class="fab fa-whatsapp mr-2"></i> FALE AGORA
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero flex items-center justify-center text-center text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-40"></div>
+        <div class="container mx-auto px-4 relative z-10" data-aos="fade-up">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 industrial-text tracking-wide">
+                <span class="text-primary">KR</span> MECÂNICA
+            </h1>
+            <p class="text-xl md:text-3xl mb-8 font-medium max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                <span class="border-b-2 border-primary pb-1">POTÊNCIA E CONFIABILIDADE</span> EM CADA QUILÔMETRO
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-6" data-aos="fade-up" data-aos-delay="400">
+                <a href="https://wa.me/5565981544315" target="_blank" class="bg-primary text-black font-bold px-8 py-4 rounded-lg hover:bg-yellow-500 transition-all btn-hover text-lg border-glow">
+                    <i class="fab fa-whatsapp mr-2"></i> FALE PELO WHATSAPP
+                </a>
+                <a href="#contato" class="bg-transparent border-2 border-white text-white font-bold px-8 py-4 rounded-lg hover:bg-white hover:text-black transition-all btn-hover text-lg">
+                    SOLICITE ORÇAMENTO
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center" data-aos="fade-up" data-aos-delay="600">
+            <a href="#sobre" class="text-white animate-bounce">
+                <div class="scroll-indicator"></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="py-20 bg-white industrial-corner">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 industrial-text">
+                    <span class="border-b-4 border-primary pb-2">SOBRE A KR MECÂNICA</span>
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Especialistas em manutenção pesada com excelência e compromisso</p>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <div class="relative overflow-hidden rounded-xl shadow-2xl border-4 border-primary">
+                        <img src="static/img/Sobre.png" alt="Oficina KR Mecânica" class="w-full h-auto transition-transform duration-500 hover:scale-105">
+                    </div>
+                </div>
+                <div class="md:w-1/2" data-aos="fade-left" data-aos-delay="200">
+                    <p class="text-lg mb-6 text-gray-700 leading-relaxed">
+                        Fundada em 2018, a <span class="font-bold text-primary">KR Mecânica</span> se estabeleceu como referência em manutenção de caminhões e equipamentos de linha amarela em Cuiabá e região. Nossa trajetória é marcada pelo compromisso com a excelência técnica e atendimento personalizado.
+                    </p>
+                    <p class="text-lg mb-6 text-gray-700 leading-relaxed">
+                        Com <span class="font-bold">CNPJ 30.360.714/0001-71</span>, atuamos legalmente e com transparência em todos os nossos serviços. Nossa localização estratégica no <span class="font-bold">Coxipó da Ponte, Quadra N° 15, Rua N° 15, Cuiabá - MT</span> facilita o acesso de nossos clientes.
+                    </p>
+                    <p class="text-lg mb-8 text-gray-700 leading-relaxed">
+                        Investimos continuamente em capacitação técnica e equipamentos de ponta para oferecer soluções completas que aumentam a vida útil dos veículos e reduzem custos operacionais.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-primary" data-aos="zoom-in" data-aos-delay="300">
+                            <div class="flex items-center">
+                                <div class="bg-primary p-2 rounded-full mr-3">
+                                    <i class="fas fa-clock text-white"></i>
+                                </div>
+                                <h4 class="font-bold">Atendimento 07:00 - 17:00</h4>
+                            </div>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-primary" data-aos="zoom-in" data-aos-delay="400">
+                            <div class="flex items-center">
+                                <div class="bg-primary p-2 rounded-full mr-3">
+                                    <i class="fas fa-shield-alt text-white"></i>
+                                </div>
+                                <h4 class="font-bold">Garantia nos serviços</h4>
+                            </div>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-primary" data-aos="zoom-in" data-aos-delay="500">
+                            <div class="flex items-center">
+                                <div class="bg-primary p-2 rounded-full mr-3">
+                                    <i class="fas fa-cog text-white"></i>
+                                </div>
+                                <h4 class="font-bold">Peças originais / Reman</h4>
+                            </div>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-primary" data-aos="zoom-in" data-aos-delay="600">
+                            <div class="flex items-center">
+                                <div class="bg-primary p-2 rounded-full mr-3">
+                                    <i class="fas fa-tools text-white"></i>
+                                </div>
+                                <h4 class="font-bold">Equipe especializada</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <div class="section-divider"></div>
+    <section id="servicos" class="py-20 industrial-bg text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 industrial-text">
+                    <span class="border-b-4 border-primary pb-2">SERVIÇOS REALIZADOS</span>
+                </h2>
+                <p class="text-lg max-w-3xl mx-auto">Especializados em manutenção preventiva e corretiva para todos os tipos de caminhões</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Service Card 1 -->
+                <div class="bg-gray-800 rounded-xl shadow-xl p-6 service-card transition duration-500 border border-transparent hover:border-primary" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="text-primary text-5xl mb-6 flex justify-center">
+                        <i class="fas fa-cogs icon-hover"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-center">EMBREAGEM</h3>
+                    <p class="text-gray-300 text-center">Manutenção completa do sistema de embreagem, garantindo suavidade e durabilidade.</p>
+                    <div class="mt-6 text-center">
+                        <a href="#contato" class="inline-block bg-primary text-black font-bold px-4 py-2 rounded hover:bg-yellow-500 transition btn-hover">
+                            Solicitar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service Card 2 -->
+                <div class="bg-gray-800 rounded-xl shadow-xl p-6 service-card transition duration-500 border border-transparent hover:border-primary" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="text-primary text-5xl mb-6 flex justify-center">
+                        <i class="fas fa-car-crash icon-hover"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-center">SUSPENSÃO</h3>
+                    <p class="text-gray-300 text-center">Reparo completo do sistema de suspensão para maior conforto e segurança na direção.</p>
+                    <div class="mt-6 text-center">
+                        <a href="#contato" class="inline-block bg-primary text-black font-bold px-4 py-2 rounded hover:bg-yellow-500 transition btn-hover">
+                            Solicitar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service Card 3 -->
+                <div class="bg-gray-800 rounded-xl shadow-xl p-6 service-card transition duration-500 border border-transparent hover:border-primary" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="text-primary text-5xl mb-6 flex justify-center">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-center">FREIOS</h3>
+                    <p class="text-gray-300 text-center">Sistema de freios completo, desde pastilhas até o reparo de cilindros e discos.</p>
+                    <div class="mt-6 text-center">
+                        <a href="#contato" class="inline-block bg-primary text-black font-bold px-4 py-2 rounded hover:bg-yellow-500 transition btn-hover">
+                            Solicitar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service Card 4 -->
+                <div class="bg-gray-800 rounded-xl shadow-xl p-6 service-card transition duration-500 border border-transparent hover:border-primary" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="text-primary text-5xl mb-6 flex justify-center">
+                        <i class="fas fa-fan icon-hover"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-center">CUÍCA</h3>
+                    <p class="text-gray-300 text-center">Substituição e manutenção de cuícas para garantir o perfeito funcionamento do motor.</p>
+                    <div class="mt-6 text-center">
+                        <a href="#contato" class="inline-block bg-primary text-black font-bold px-4 py-2 rounded hover:bg-yellow-500 transition btn-hover">
+                            Solicitar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service Card 5 -->
+                <div class="bg-gray-800 rounded-xl shadow-xl p-6 service-card transition duration-500 border border-transparent hover:border-primary" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="text-primary text-5xl mb-6 flex justify-center">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-center">VÁLVULAS</h3>
+                    <p class="text-gray-300 text-center">Regulagem e substituição de válvulas para otimizar o desempenho do motor.</p>
+                    <div class="mt-6 text-center">
+                        <a href="#contato" class="inline-block bg-primary text-black font-bold px-4 py-2 rounded hover:bg-yellow-500 transition btn-hover">
+                            Solicitar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service Card 6 -->
+                <div class="bg-gray-800 rounded-xl shadow-xl p-6 service-card transition duration-500 border border-transparent hover:border-primary" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="text-primary text-5xl mb-6 flex justify-center">
+                        <i class="fas fa-cog icon-hover"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-center">DIFERENCIAL</h3>
+                    <p class="text-gray-300 text-center">Manutenção completa do diferencial, incluindo troca de óleo e reparo de engrenagens.</p>
+                    <div class="mt-6 text-center">
+                        <a href="#contato" class="inline-block bg-primary text-black font-bold px-4 py-2 rounded hover:bg-yellow-500 transition btn-hover">
+                            Solicitar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service Card 7 -->
+                <div class="bg-gray-800 rounded-xl shadow-xl p-6 service-card transition duration-500 border border-transparent hover:border-primary" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="text-primary text-5xl mb-6 flex justify-center">
+                        <i class="fas fa-oil-well icon-hover"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-center">TROCA DE ÓLEO</h3>
+                    <p class="text-gray-300 text-center">Utilizamos os melhores lubrificantes e filtros para prolongar a vida útil do seu motor.</p>
+                    <div class="mt-6 text-center">
+                        <a href="#contato" class="inline-block bg-primary text-black font-bold px-4 py-2 rounded hover:bg-yellow-500 transition btn-hover">
+                            Solicitar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service Card 8 -->
+                <div class="bg-gray-800 rounded-xl shadow-xl p-6 service-card transition duration-500 border border-transparent hover:border-primary" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="text-primary text-5xl mb-6 flex justify-center">
+                        <i class="fas fa-truck-pickup icon-hover"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-center">MECÂNICA GERAL</h3>
+                    <p class="text-gray-300 text-center">Serviços completos de mecânica pesada para todos os modelos de caminhões.</p>
+                    <div class="mt-6 text-center">
+                        <a href="#contato" class="inline-block bg-primary text-black font-bold px-4 py-2 rounded hover:bg-yellow-500 transition btn-hover">
+                            Solicitar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Yellow Line Section -->
+    <div class="section-divider"></div>
+    <section id="linha-amarela" class="py-20 bg-white industrial-corner">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 industrial-text">
+                    <span class="border-b-4 border-primary pb-2">LINHA AMARELA</span>
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Especializados em manutenção de equipamentos pesados</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                <div class="bg-gray-100 p-8 rounded-xl shadow-lg border-t-4 border-primary" data-aos="fade-right">
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div class="md:w-1/3">
+                            <img src="static/img/embuchamento_conchas.jpg" alt="Embuchamento de Conchas" class="w-full rounded-lg shadow-md">
+                        </div>
+                        <div class="md:w-2/3">
+                            <h3 class="text-2xl font-bold mb-4 text-primary">EMBUCHAMENTO DE CONCHAS</h3>
+                            <p class="text-gray-700 mb-4">Serviço especializado no embuchamento de conchas para escavadeiras, carregadeiras e outros equipamentos pesados.</p>
+                            <ul class="space-y-3 mb-6">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 mr-3"></i>
+                                    <span class="flex-1">Utilização de matérias-primas de alta qualidade</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 mr-3"></i>
+                                    <span class="flex-1">Processo realizado por profissionais experientes</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 mr-3"></i>
+                                    <span class="flex-1">Garantia de durabilidade e resistência</span>
+                                </li>
+                            </ul>
+                            <a href="#contato" class="inline-block bg-primary text-black font-bold px-6 py-3 rounded hover:bg-yellow-500 transition btn-hover">
+                                Solicitar Serviço
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 p-8 rounded-xl shadow-lg border-t-4 border-primary" data-aos="fade-left" data-aos-delay="200">
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div class="md:w-1/3">
+                            <img src="static/img/pistao.jpg" alt="Pistão Hidráulico" class="w-full rounded-lg shadow-md">
+                        </div>
+                        <div class="md:w-2/3">
+                            <h3 class="text-2xl font-bold mb-4 text-primary">PISTÃO HIDRÁULICO</h3>
+                            <p class="text-gray-700 mb-4">Manutenção e reparo de pistões hidráulicos para todos os tipos de equipamentos pesados.</p>
+                            <ul class="space-y-3 mb-6">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 mr-3"></i>
+                                    <span class="flex-1">Retífica de virabrequim e cilindros</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 mr-3"></i>
+                                    <span class="flex-1">Substituição de selos e vedações</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-primary mt-1 mr-3"></i>
+                                    <span class="flex-1">Testes de pressão e funcionamento</span>
+                                </li>
+                            </ul>
+                            <a href="#contato" class="inline-block bg-primary text-black font-bold px-6 py-3 rounded hover:bg-yellow-500 transition btn-hover">
+                                Solicitar Serviço
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Parts Section -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 industrial-text">
+                    <span class="border-b-4 border-primary pb-2">VENDA DE PEÇAS</span>
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Peças originais e de qualidade para seu equipamento</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-aos="fade-up">
+                <div class="bg-gray-100 rounded-xl overflow-hidden shadow-lg part-card">
+                    <div class="h-48 overflow-hidden">
+                        <img src="static/img/modulo.jpg" alt="Módulo" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-xl mb-2 text-center">MÓDULO</h3>
+                        <p class="text-gray-600 text-center mb-4">Módulos originais para diversos modelos de equipamentos.</p>
+                        <div class="text-center">
+                            <a href="#contato" class="inline-block bg-primary text-black font-bold px-4 py-2 rounded hover:bg-yellow-500 transition btn-hover">
+                                Consultar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 rounded-xl overflow-hidden shadow-lg part-card">
+                    <div class="h-48 overflow-hidden">
+                        <img src="static/img/bomba_alta.jpg" alt="Bomba de alta" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-xl mb-2 text-center">BOMBA DE ALTA</h3>
+                        <p class="text-gray-600 text-center mb-4">Bombas de alta pressão para sistemas hidráulicos.</p>
+                        <div class="text-center">
+                            <a href="#contato" class="inline-block bg-primary text-black font-bold px-4 py-2 rounded hover:bg-yellow-500 transition btn-hover">
+                                Consultar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 rounded-xl overflow-hidden shadow-lg part-card">
+                    <div class="h-48 overflow-hidden">
+                        <img src="static/img/unidade_injetora.jpg" alt="Unidade injetora" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-xl mb-2 text-center">UNIDADE INJETORA</h3>
+                        <p class="text-gray-600 text-center mb-4">Unidades injetoras para sistemas de combustível.</p>
+                        <div class="text-center">
+                            <a href="#contato" class="inline-block bg-primary text-black font-bold px-4 py-2 rounded hover:bg-yellow-500 transition btn-hover">
+                                Consultar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 rounded-xl overflow-hidden shadow-lg part-card">
+                    <div class="h-48 overflow-hidden">
+                        <img src="static/img/solenoide.jpg" alt="Solenoide" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-xl mb-2 text-center">SOLENOIDE</h3>
+                        <p class="text-gray-600 text-center mb-4">Solenoides para diversos sistemas elétricos e hidráulicos.</p>
+                        <div class="text-center">
+                            <a href="#contato" class="inline-block bg-primary text-black font-bold px-4 py-2 rounded hover:bg-yellow-500 transition btn-hover">
+                                Consultar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <div class="section-divider"></div>
+    <section id="contato" class="py-20 bg-gray-900 text-white industrial-corner">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 industrial-text">
+                    <span class="border-b-4 border-primary pb-2">FALE CONOSCO AGORA</span>
+                </h2>
+                <p class="text-xl max-w-3xl mx-auto">Estamos prontos para atender seu caminhão ou equipamento hoje mesmo!</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2" data-aos="fade-right">
+                    <div class="bg-gray-800 rounded-xl p-8 shadow-xl h-full">
+                        <h3 class="text-2xl font-bold mb-8 text-primary">INFORMAÇÕES DE CONTATO</h3>
+                        
+                        <div class="space-y-8">
+                            <div class="flex items-start">
+                                <div class="bg-primary p-3 rounded-full mr-6">
+                                    <i class="fas fa-map-marker-alt text-black text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">ENDEREÇO</h4>
+                                    <div>
+                                        <iframe 
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.885796052668!2d-56.09239432428627!3d-15.583560289156208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x939db1c30e1c9059%3A0x9b70e5d4b0c8f35c!2s82WG%2B43Q%20Cuiab%C3%A1%20-%20Coxip%C3%B3%20da%20Ponte!5e0!3m2!1spt-BR!2sbr!4v1683123456789!5m2!1spt-BR!2sbr" 
+                                            width="600" 
+                                            height="450" 
+                                            style="border:0;" 
+                                            allowfullscreen="" 
+                                            loading="lazy" 
+                                            referrerpolicy="no-referrer-when-downgrade">
+                                        </iframe>
+                                    </div>
+                                </div>                                                               
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-primary p-3 rounded-full mr-6">
+                                    <i class="fas fa-phone-alt text-black text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">TELEFONE</h4>
+                                    <p class="text-xl">(65) 98154-4315</p>
+                                    <p class="text-primary">Atendimento 24 horas</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-primary p-3 rounded-full mr-6">
+                                    <i class="fas fa-id-card text-black text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">CNPJ</h4>
+                                    <p>30.360.714/0001-71</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-primary p-3 rounded-full mr-6">
+                                    <i class="fab fa-instagram text-black text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">INSTAGRAM</h4>
+                                    <p>@krmecanica</p>
+                                    <a href="https://instagram.com/krmecanica" target="_blank" class="text-primary hover:underline inline-flex items-center mt-1">
+                                        Siga-nos <i class="fas fa-external-link-alt ml-1 text-sm"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-12">
+                            <a href="https://wa.me/5565981544315" target="_blank" class="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-lg transition-all btn-hover w-full text-center">
+                                <i class="fab fa-whatsapp mr-3 text-2xl"></i> 
+                                <span class="text-xl">FALE PELO WHATSAPP</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2" data-aos="fade-left" data-aos-delay="200">
+                    <div class="bg-gray-800 rounded-xl p-8 shadow-xl h-full">
+                        <h3 class="text-2xl font-bold mb-8 text-primary">SOLICITE UM ORÇAMENTO</h3>
+                        
+                        <form class="space-y-6">
+                            <div>
+                                <label for="name" class="block mb-2 font-medium">Nome Completo</label>
+                                <input type="text" id="name" class="w-full px-5 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Seu nome completo">
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="email" class="block mb-2 font-medium">E-mail</label>
+                                    <input type="email" id="email" class="w-full px-5 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Seu e-mail">
+                                </div>
+                                
+                                <div>
+                                    <label for="phone" class="block mb-2 font-medium">Telefone</label>
+                                    <input type="tel" id="phone" class="w-full px-5 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="(65) 99999-9999">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="service" class="block mb-2 font-medium">Serviço de Interesse</label>
+                                <select id="service" class="w-full px-5 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="">Selecione um serviço</option>
+                                    <option value="embreagem">Embreagem</option>
+                                    <option value="suspensao">Suspensão</option>
+                                    <option value="freios">Freios</option>
+                                    <option value="cuica">Cuíca</option>
+                                    <option value="valvulas">Válvulas</option>
+                                    <option value="diferencial">Diferencial</option>
+                                    <option value="oleo-filtros">Troca de Óleo e Filtros</option>
+                                    <option value="embuchamento">Embuchamento de Conchas</option>
+                                    <option value="pistao">Pistão Hidráulico</option>
+                                    <option value="pecas">Peças Linha Amarela</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block mb-2 font-medium">Mensagem</label>
+                                <textarea id="message" rows="5" class="w-full px-5 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Descreva o serviço necessário"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-primary hover:bg-yellow-500 text-black font-bold px-8 py-4 rounded-lg transition-all btn-hover text-xl">
+                                ENVIAR SOLICITAÇÃO
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 border-t border-primary">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start">
+                        <span class="text-primary font-bold text-3xl industrial-text">KR</span>
+                        <span class="font-bold text-3xl ml-1 industrial-text">MECÂNICA</span>
+                    </div>
+                    <p class="text-gray-400 mt-4">Especialistas em manutenção de caminhões e linha amarela</p>
+                    <p class="text-gray-500 text-sm mt-2">CNPJ: 30.360.714/0001-71</p>
+                </div>
+                
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="https://facebook.com" target="_blank" class="text-gray-400 hover:text-primary transition-all icon-hover text-2xl">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://instagram.com/krmecanica" target="_blank" class="text-gray-400 hover:text-primary transition-all icon-hover text-2xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/5565981544315" target="_blank" class="text-gray-400 hover:text-primary transition-all icon-hover text-2xl">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-gray-400">(65) 98154-4315</p>
+                    <p class="text-primary">krmecanica09@gmail.com</p>
+                    <p class="text-gray-500 text-sm mt-2">Coxipó da Ponte, Quadra N° 15, Rua N° 15, Cuiabá-MT</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-500">&copy; 2018 KR Mecânica. Todos os direitos reservados.</p>
+                <p class="text-gray-600 text-sm mt-2">Especializados em manutenção pesada com qualidade e compromisso</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: false,
+            mirror: true
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Form submission (example)
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show success message
+                const successMessage = document.createElement('div');
+                successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in';
+                successMessage.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        <span>Solicitação enviada com sucesso! Entraremos em contato em breve.</span>
+                    </div>
+                `;
+                document.body.appendChild(successMessage);
+                
+                // Remove message after 5 seconds
+                setTimeout(() => {
+                    successMessage.classList.add('animate-fade-out');
+                    setTimeout(() => {
+                        successMessage.remove();
+                    }, 300);
+                }, 5000);
+                
+                // Reset form
+                this.reset();
+            });
+        }
+        
+        // Add fade-in effect on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+    </script>
+</body>
+</html>
